@@ -1,12 +1,12 @@
 [{
     "modid": "${modid}",
     "name": "${modname}",
-    "description": "Replace EnderIO conduits with one simple tool",
+    "description": "A tool for mass-replacing EnderIO conduits across an entire network while preserving settings.",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "logoFile": "",
     "url": "",
     "authorList": [],
-    "credits": "",
-    "dependencies": []
+    "credits": "EnderIO Team for the amazing conduit system",
+    "dependencies": ["enderio", "endercore"]
 }]

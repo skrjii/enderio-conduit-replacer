@@ -1,0 +1,28 @@
+{
+    "type": "forge:ore_shaped",
+    "pattern": [
+        " P ",
+        "DYD",
+        " C "
+    ],
+    "key": {
+        "P": {
+            "item": "enderio:item_material",
+            "data": 14
+        },
+        "D": {
+            "item": "enderio:item_alloy_ingot",
+            "data": 6
+        },
+        "Y": {
+            "item": "enderio:item_yeta_wrench"
+        },
+        "C": {
+            "item": "enderio:item_material",
+            "data": 1
+        }
+    },
+    "result": {
+        "item": "enderio-conduit-replacer:conduit_replacer"
+    }
+}

@@ -1,0 +1,9 @@
+# Conduit Replacer Language File
+
+# Item
+item.enderio-conduit-replacer.conduit_replacer.name=Conduit Replacer
+
+# GUI
+enderio-conduit-replacer.gui.title=Conduit Replacer
+enderio-conduit-replacer.gui.source=Source
+enderio-conduit-replacer.gui.replacement=Replace
