@@ -9,6 +9,7 @@ import com.soliddowant.enderioconduitreplacer.gui.ContainerConduitReplacer;
 import com.soliddowant.enderioconduitreplacer.gui.GuiConduitReplacer;
 import com.soliddowant.enderioconduitreplacer.init.ModItems;
 import com.soliddowant.enderioconduitreplacer.item.ItemConduitReplacer;
+import com.soliddowant.enderioconduitreplacer.network.PacketHandler;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,6 +37,7 @@ public class EnderIOConduitReplacerMod {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        PacketHandler.init();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 

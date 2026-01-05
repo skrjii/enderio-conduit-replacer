@@ -25,7 +25,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -97,14 +97,13 @@ public class ItemConduitReplacer extends Item {
 
         // Validate that both slots are set
         if (source.isEmpty() || replacement.isEmpty()) {
-            player.sendMessage(new TextComponentString(
-                    "Set both source and replacement conduits in the GUI first (Shift+Right-Click)"));
+            player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.set_both"));
             return;
         }
 
         // Validate both are conduit items
         if (!(source.getItem() instanceof IConduitItem) || !(replacement.getItem() instanceof IConduitItem)) {
-            player.sendMessage(new TextComponentString("Invalid conduit items configured"));
+            player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.invalid_items"));
             return;
         }
 
@@ -130,44 +129,37 @@ public class ItemConduitReplacer extends Item {
 
         switch (result.getStatus()) {
             case SUCCESS:
-                player.sendMessage(new TextComponentString(
-                        String.format("Replaced %d conduit(s)", result.getReplacedCount())));
+                player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.replaced",
+                        result.getReplacedCount()));
                 break;
 
             case NEEDS_CONFIRMATION_INSUFFICIENT:
                 pendingConfirmations.put(playerId,
                         new ConfirmationContext(pos, timestamp, WarningType.INSUFFICIENT_MATERIALS));
-                player.sendMessage(new TextComponentString(
-                        String.format(
-                                "Need %d conduit(s), have %d. Right-click again within 1 second to replace partial.",
-                                result.getRequiredCount(), result.getAvailableCount())));
+                player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.insufficient",
+                        result.getRequiredCount(), result.getAvailableCount()));
                 break;
 
             case NEEDS_CONFIRMATION_UPGRADES:
                 pendingConfirmations.put(playerId,
                         new ConfirmationContext(pos, timestamp, WarningType.UPGRADES_WILL_DROP));
-                player.sendMessage(new TextComponentString(
-                        "Some upgrades/filters cannot be preserved and will be dropped. Right-click again within 1 second to confirm."));
+                player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.upgrades_drop"));
                 break;
 
             case SOURCE_NOT_FOUND:
-                player.sendMessage(new TextComponentString(
-                        "Source conduit type not found in this bundle"));
+                player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.source_not_found"));
                 break;
 
             case CATEGORY_MISMATCH:
-                player.sendMessage(new TextComponentString(
-                        "Source and replacement conduits must be the same category (e.g., both energy conduits)"));
+                player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.category_mismatch"));
                 break;
 
             case INVALID_ITEMS:
-                player.sendMessage(new TextComponentString(
-                        "Invalid conduit items configured"));
+                player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.invalid_items"));
                 break;
 
             case NO_CONDUITS_REPLACED:
-                player.sendMessage(new TextComponentString(
-                        "No conduits were replaced"));
+                player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.no_conduits_replaced"));
                 break;
         }
     }

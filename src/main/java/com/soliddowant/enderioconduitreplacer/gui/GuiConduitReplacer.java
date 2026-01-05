@@ -73,25 +73,25 @@ public class GuiConduitReplacer extends GuiContainerBaseEIO<ItemStack>
             boolean sameCategory = ConduitSettingsUtil.areSameCategory(source, replacement);
             if (sameCategory) {
                 String categoryName = ConduitSettingsUtil.getCategoryName(source);
-                getFontRenderer().drawString("Category: " + categoryName, 8, statusY, 0x006600);
-                getFontRenderer().drawString("Ready to replace!", 8, statusY + 10, 0x006600);
+                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category", categoryName), 8, statusY, 0x006600);
+                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.ready"), 8, statusY + 10, 0x006600);
             } else {
-                getFontRenderer().drawString("Category mismatch!", 8, statusY, 0xCC0000);
+                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category_mismatch"), 8, statusY, 0xCC0000);
                 String srcCat = ConduitSettingsUtil.getCategoryName(source);
                 String repCat = ConduitSettingsUtil.getCategoryName(replacement);
-                getFontRenderer().drawString(srcCat + " != " + repCat, 8, statusY + 10, 0xCC0000);
+                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category_mismatch_detail", srcCat, repCat), 8, statusY + 10, 0xCC0000);
             }
         } else if (!source.isEmpty()) {
             String categoryName = ConduitSettingsUtil.getCategoryName(source);
-            getFontRenderer().drawString("Category: " + categoryName, 8, statusY, 0x404040);
-            getFontRenderer().drawString("Set replacement conduit", 8, statusY + 10, 0x808080);
+            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category", categoryName), 8, statusY, 0x404040);
+            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.set_replacement"), 8, statusY + 10, 0x808080);
         } else if (!replacement.isEmpty()) {
             String categoryName = ConduitSettingsUtil.getCategoryName(replacement);
-            getFontRenderer().drawString("Category: " + categoryName, 8, statusY, 0x404040);
-            getFontRenderer().drawString("Set source conduit", 8, statusY + 10, 0x808080);
+            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category", categoryName), 8, statusY, 0x404040);
+            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.set_source"), 8, statusY + 10, 0x808080);
         } else {
-            getFontRenderer().drawString("Set conduits above", 8, statusY, 0x808080);
-            getFontRenderer().drawString("Drag from JEI or inventory", 8, statusY + 10, 0x808080);
+            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.set_conduits"), 8, statusY, 0x808080);
+            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.drag_hint"), 8, statusY + 10, 0x808080);
         }
 
         // Draw "Inventory" label

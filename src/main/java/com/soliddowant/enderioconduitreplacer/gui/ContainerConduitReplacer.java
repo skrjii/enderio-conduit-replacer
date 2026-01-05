@@ -15,7 +15,6 @@ public class ContainerConduitReplacer extends Container {
 
     private final EntityPlayer player;
     private final EnumHand hand;
-    private final ItemStack heldItem;
 
     // Ghost slot contents (not actual inventory slots)
     private ItemStack sourceConduit = ItemStack.EMPTY;
@@ -24,9 +23,9 @@ public class ContainerConduitReplacer extends Container {
     public ContainerConduitReplacer(InventoryPlayer playerInventory, EnumHand hand) {
         this.player = playerInventory.player;
         this.hand = hand;
-        this.heldItem = player.getHeldItem(hand);
 
         // Load current ghost slot contents from item NBT
+        ItemStack heldItem = player.getHeldItem(hand);
         if (heldItem.getItem() instanceof ItemConduitReplacer) {
             sourceConduit = ItemConduitReplacer.getSourceConduit(heldItem);
             replacementConduit = ItemConduitReplacer.getReplacementConduit(heldItem);
@@ -77,14 +76,9 @@ public class ContainerConduitReplacer extends Container {
 
     public void setSourceConduit(@Nonnull ItemStack stack) {
         this.sourceConduit = stack.isEmpty() ? ItemStack.EMPTY : stack.copy();
-        if (!sourceConduit.isEmpty()) {
-            sourceConduit.setCount(1);
-        }
-
-        // Update the item NBT
-        if (heldItem.getItem() instanceof ItemConduitReplacer) {
-            ItemConduitReplacer.setSourceConduit(heldItem, sourceConduit);
-        }
+        if (sourceConduit.isEmpty())
+            return;
+        sourceConduit.setCount(1);
     }
 
     @Nonnull
@@ -94,14 +88,9 @@ public class ContainerConduitReplacer extends Container {
 
     public void setReplacementConduit(@Nonnull ItemStack stack) {
         this.replacementConduit = stack.isEmpty() ? ItemStack.EMPTY : stack.copy();
-        if (!replacementConduit.isEmpty()) {
-            replacementConduit.setCount(1);
-        }
-
-        // Update the item NBT
-        if (heldItem.getItem() instanceof ItemConduitReplacer) {
-            ItemConduitReplacer.setReplacementConduit(heldItem, replacementConduit);
-        }
+        if (replacementConduit.isEmpty())
+            return;
+        replacementConduit.setCount(1);
     }
 
     public EntityPlayer getPlayer() {
