@@ -1,6 +1,7 @@
 package com.soliddowant.enderioconduitreplacer.network;
 
 import com.soliddowant.enderioconduitreplacer.Tags;
+
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.soliddowant.enderioconduitreplacer.gui.ContainerConduitReplacer;
 import com.soliddowant.enderioconduitreplacer.gui.GuiConduitReplacer;
+import com.soliddowant.enderioconduitreplacer.handler.ConduitPickHandler;
 import com.soliddowant.enderioconduitreplacer.init.ModItems;
 import com.soliddowant.enderioconduitreplacer.item.ItemConduitReplacer;
 import com.soliddowant.enderioconduitreplacer.network.PacketHandler;
@@ -17,6 +18,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -39,6 +41,11 @@ public class EnderIOConduitReplacerMod {
     public void init(FMLInitializationEvent event) {
         PacketHandler.init();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+
+        // Register client-side event handler for conduit picking
+        if (event.getSide().isClient()) {
+            MinecraftForge.EVENT_BUS.register(new ConduitPickHandler());
+        }
     }
 
     @Mod.EventBusSubscriber(modid = Tags.MODID, value = Side.CLIENT)

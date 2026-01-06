@@ -25,3 +25,5 @@ enderio-conduit-replacer.message.upgrades_drop=Some upgrades/filters cannot be p
 enderio-conduit-replacer.message.source_not_found=Source conduit type not found in this bundle
 enderio-conduit-replacer.message.category_mismatch=Source and replacement conduits must be the same category (e.g., both energy conduits)
 enderio-conduit-replacer.message.no_conduits_replaced=No conduits were replaced
+enderio-conduit-replacer.message.source_set=Set source conduit to %s
+enderio-conduit-replacer.message.replacement_set=Set replacement conduit to %s
