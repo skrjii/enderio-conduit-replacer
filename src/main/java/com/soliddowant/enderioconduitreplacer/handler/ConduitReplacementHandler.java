@@ -80,8 +80,8 @@ public class ConduitReplacementHandler {
         int required = toReplace.size();
         int available = countItemsInInventory(player, replacementItem);
 
-        // Require full inventory - no partial replacements
-        if (available < required) {
+        // Require full inventory - no partial replacements (skip in creative mode)
+        if (!player.capabilities.isCreativeMode && available < required) {
             return ReplacementResult.insufficientAvailable(required, available);
         }
 
@@ -272,23 +272,25 @@ public class ConduitReplacementHandler {
             // 7. Restore settings to new conduit
             ConduitSettingsUtil.restoreSettings(newConduit, settings);
 
-            // 8. Handle inventory: consume replacement from player
-            consumeFromInventory(player, replacementItem, 1);
+            if (!player.capabilities.isCreativeMode) {
+                // 8. Handle inventory: consume replacement from player (skip in creative mode)
+                consumeFromInventory(player, replacementItem, 1);
 
-            // 9. Return old conduit drops to player
-            for (ItemStack drop : drops) {
-                if (!drop.isEmpty()) {
-                    // Skip the base conduit item itself - we're swapping it
-                    // Only give back upgrades/filters that are extras
-                    if (drops.size() > 1 && drop == drops.get(0)) {
-                        // First item is typically the conduit itself, give it back
-                        giveOrDropItem(player, drop);
-                    } else if (drops.size() == 1) {
-                        // Only one drop (just the conduit), give it back
-                        giveOrDropItem(player, drop);
-                    } else {
-                        // Additional drops (upgrades/filters)
-                        giveOrDropItem(player, drop);
+                // 9. Return old conduit drops to player (skip in creative mode)
+                for (ItemStack drop : drops) {
+                    if (!drop.isEmpty()) {
+                        // Skip the base conduit item itself - we're swapping it
+                        // Only give back upgrades/filters that are extras
+                        if (drops.size() > 1 && drop == drops.get(0)) {
+                            // First item is typically the conduit itself, give it back
+                            giveOrDropItem(player, drop);
+                        } else if (drops.size() == 1) {
+                            // Only one drop (just the conduit), give it back
+                            giveOrDropItem(player, drop);
+                        } else {
+                            // Additional drops (upgrades/filters)
+                            giveOrDropItem(player, drop);
+                        }
                     }
                 }
             }
