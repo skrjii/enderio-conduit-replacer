@@ -80,26 +80,23 @@ public class ConduitReplacementHandler {
         int required = toReplace.size();
         int available = countItemsInInventory(player, replacementItem);
 
+        // Require full inventory - no partial replacements
+        if (available < required) {
+            return ReplacementResult.insufficientAvailable(required, available);
+        }
+
         // Check if any conduits have upgrades that might not be preservable
         boolean hasUpgradesAtRisk = checkForUpgradesAtRisk(toReplace, sourceItem, replacementItem);
 
-        // Handle warnings
-        if (!confirmed) {
-            if (available < required) {
-                return ReplacementResult.needsConfirmationInsufficient(required, available);
-            }
-
-            if (hasUpgradesAtRisk) {
-                return ReplacementResult.needsConfirmationUpgrades();
-            }
+        // Handle upgrade warning
+        if (!confirmed && hasUpgradesAtRisk) {
+            return ReplacementResult.needsConfirmationUpgrades();
         }
 
         // Perform the actual replacement
         int replaced = 0;
-        int maxToReplace = Math.min(required, available);
 
-        for (int i = 0; i < maxToReplace && i < toReplace.size(); i++) {
-            ConduitLocation loc = toReplace.get(i);
+        for (ConduitLocation loc : toReplace) {
             if (replaceConduit(player, loc, replacementItem)) {
                 replaced++;
             }
@@ -298,6 +295,24 @@ public class ConduitReplacementHandler {
 
             // 10. Mark bundle dirty to trigger re-render and network updates
             bundle.dirty();
+
+            // 11. Notify neighboring bundles to update their visual connections
+            World world = bundle.getBundleworld();
+            for (EnumFacing dir : EnumFacing.VALUES) {
+                BlockPos neighborPos = loc.pos.offset(dir);
+                TileEntity te = world.getTileEntity(neighborPos);
+                if (te instanceof IConduitBundle) {
+                    IConduitBundle neighborBundle = (IConduitBundle) te;
+                    neighborBundle.dirty();
+                }
+
+                // Force block update to refresh rendering
+                world.notifyBlockUpdate(neighborPos, world.getBlockState(neighborPos), world.getBlockState(neighborPos),
+                        3);
+            }
+
+            // Also force update on the replaced conduit's block
+            world.notifyBlockUpdate(loc.pos, world.getBlockState(loc.pos), world.getBlockState(loc.pos), 3);
 
             return true;
 

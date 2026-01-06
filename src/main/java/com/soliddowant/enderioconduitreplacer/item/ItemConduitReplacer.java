@@ -133,16 +133,13 @@ public class ItemConduitReplacer extends Item {
                         result.getReplacedCount()));
                 break;
 
-            case NEEDS_CONFIRMATION_INSUFFICIENT:
-                pendingConfirmations.put(playerId,
-                        new ConfirmationContext(pos, timestamp, WarningType.INSUFFICIENT_MATERIALS));
+            case INSUFFICIENT_AVAILABLE:
                 player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.insufficient",
                         result.getRequiredCount(), result.getAvailableCount()));
                 break;
 
             case NEEDS_CONFIRMATION_UPGRADES:
-                pendingConfirmations.put(playerId,
-                        new ConfirmationContext(pos, timestamp, WarningType.UPGRADES_WILL_DROP));
+                pendingConfirmations.put(playerId, new ConfirmationContext(pos, timestamp));
                 player.sendMessage(new TextComponentTranslation(Tags.MODID + ".message.upgrades_drop"));
                 break;
 
@@ -217,21 +214,13 @@ public class ItemConduitReplacer extends Item {
     }
 
     // Confirmation tracking
-
-    private enum WarningType {
-        INSUFFICIENT_MATERIALS,
-        UPGRADES_WILL_DROP
-    }
-
     private static class ConfirmationContext {
         final BlockPos pos;
         final long timestamp;
-        final WarningType warning;
 
-        ConfirmationContext(BlockPos pos, long timestamp, WarningType warning) {
+        ConfirmationContext(BlockPos pos, long timestamp) {
             this.pos = pos;
             this.timestamp = timestamp;
-            this.warning = warning;
         }
 
         boolean isValid(long currentTime) {

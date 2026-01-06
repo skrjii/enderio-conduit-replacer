@@ -4,7 +4,7 @@ public class ReplacementResult {
 
     public enum Status {
         SUCCESS,
-        NEEDS_CONFIRMATION_INSUFFICIENT,
+        INSUFFICIENT_AVAILABLE,
         NEEDS_CONFIRMATION_UPGRADES,
         SOURCE_NOT_FOUND,
         CATEGORY_MISMATCH,
@@ -28,8 +28,8 @@ public class ReplacementResult {
         return new ReplacementResult(Status.SUCCESS, replacedCount, 0, 0);
     }
 
-    public static ReplacementResult needsConfirmationInsufficient(int required, int available) {
-        return new ReplacementResult(Status.NEEDS_CONFIRMATION_INSUFFICIENT, 0, required, available);
+    public static ReplacementResult insufficientAvailable(int required, int available) {
+        return new ReplacementResult(Status.INSUFFICIENT_AVAILABLE, 0, required, available);
     }
 
     public static ReplacementResult needsConfirmationUpgrades() {
@@ -73,6 +73,6 @@ public class ReplacementResult {
     }
 
     public boolean needsConfirmation() {
-        return status == Status.NEEDS_CONFIRMATION_INSUFFICIENT || status == Status.NEEDS_CONFIRMATION_UPGRADES;
+        return status == Status.NEEDS_CONFIRMATION_UPGRADES;
     }
 }
