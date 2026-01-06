@@ -45,10 +45,15 @@ public class GuiConduitReplacer extends GuiContainerBaseEIO<ItemStack>
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO);
         mc.getTextureManager().bindTexture(getGuiTexture());
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        GlStateManager.disableBlend();
 
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
     }
@@ -80,7 +85,8 @@ public class GuiConduitReplacer extends GuiContainerBaseEIO<ItemStack>
                 getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category_mismatch"), 8, statusY, 0xCC0000);
                 String srcCat = ConduitSettingsUtil.getCategoryName(source);
                 String repCat = ConduitSettingsUtil.getCategoryName(replacement);
-                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category_mismatch_detail", srcCat, repCat), 8, statusY + 10, 0xCC0000);
+                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category_mismatch_detail", srcCat, repCat),
+                        8, statusY + 10, 0xCC0000);
             }
         } else if (!source.isEmpty()) {
             String categoryName = ConduitSettingsUtil.getCategoryName(source);
