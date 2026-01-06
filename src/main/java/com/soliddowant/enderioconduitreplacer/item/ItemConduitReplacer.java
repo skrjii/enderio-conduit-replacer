@@ -58,35 +58,28 @@ public class ItemConduitReplacer extends Item {
             @Nonnull EnumHand hand) {
         ItemStack held = player.getHeldItem(hand);
 
-        if (player.isSneaking()) {
-            // Open GUI
-            if (!world.isRemote) {
-                player.openGui(EnderIOConduitReplacerMod.instance, EnderIOConduitReplacerMod.GUI_CONDUIT_REPLACER,
-                        world, (int) player.posX, (int) player.posY, (int) player.posZ);
-            }
-            return ActionResult.newResult(EnumActionResult.SUCCESS, held);
+        // Always open GUI when right-clicking in air
+        if (!world.isRemote) {
+            player.openGui(EnderIOConduitReplacerMod.instance, EnderIOConduitReplacerMod.GUI_CONDUIT_REPLACER,
+                    world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
-
-        return ActionResult.newResult(EnumActionResult.PASS, held);
+        return ActionResult.newResult(EnumActionResult.SUCCESS, held);
     }
 
     @Override
     @Nonnull
     public EnumActionResult onItemUseFirst(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull BlockPos pos,
             @Nonnull EnumFacing side, float hitX, float hitY, float hitZ, @Nonnull EnumHand hand) {
-        if (player.isSneaking()) {
-            // Let onItemRightClick handle GUI opening
-            return EnumActionResult.PASS;
-        }
-
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof IConduitBundle) {
+            // Perform replacement on conduit bundle
             if (!world.isRemote) {
                 performReplacement(player, (IConduitBundle) te, hand, pos);
             }
             return EnumActionResult.SUCCESS;
         }
 
+        // Not a conduit bundle - let onItemRightClick open the GUI
         return EnumActionResult.PASS;
     }
 

@@ -17,7 +17,7 @@ enderio-conduit-replacer.gui.set_conduits=Set conduits above
 enderio-conduit-replacer.gui.category_none=
 
 # Chat Messages
-enderio-conduit-replacer.message.set_both=Set both source and replacement conduits in the GUI first (Shift+Right-Click)
+enderio-conduit-replacer.message.set_both=Set both source and replacement conduits in the GUI first (right-click)
 enderio-conduit-replacer.message.invalid_items=Invalid conduit items configured
 enderio-conduit-replacer.message.replaced=%d conduit(s) replaced
 enderio-conduit-replacer.message.insufficient=Need %d conduit(s), have %d.
