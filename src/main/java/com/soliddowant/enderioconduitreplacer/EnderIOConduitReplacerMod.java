@@ -41,14 +41,16 @@ public class EnderIOConduitReplacerMod {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void registerModels(ModelRegistryEvent event) {
-        if (ModItems.CONDUIT_REPLACER == null)
-            return;
+    @Mod.EventBusSubscriber(modid = Tags.MODID, value = Side.CLIENT)
+    public static class ClientEventHandler {
+        @SubscribeEvent
+        public static void registerModels(ModelRegistryEvent event) {
+            if (ModItems.CONDUIT_REPLACER == null)
+                return;
 
-        ModelLoader.setCustomModelResourceLocation(ModItems.CONDUIT_REPLACER, 0,
-                new ModelResourceLocation(ModItems.CONDUIT_REPLACER.getRegistryName(), "inventory"));
+            ModelLoader.setCustomModelResourceLocation(ModItems.CONDUIT_REPLACER, 0,
+                    new ModelResourceLocation(ModItems.CONDUIT_REPLACER.getRegistryName(), "inventory"));
+        }
     }
 
     /**

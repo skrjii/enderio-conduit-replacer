@@ -45,7 +45,7 @@ public class GuiConduitReplacer extends GuiContainerBaseEIO<ItemStack>
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        bindGuiTexture();
+        mc.getTextureManager().bindTexture(getGuiTexture());
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
@@ -73,7 +73,8 @@ public class GuiConduitReplacer extends GuiContainerBaseEIO<ItemStack>
             boolean sameCategory = ConduitSettingsUtil.areSameCategory(source, replacement);
             if (sameCategory) {
                 String categoryName = ConduitSettingsUtil.getCategoryName(source);
-                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category", categoryName), 8, statusY, 0x006600);
+                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category", categoryName), 8, statusY,
+                        0x006600);
                 getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.ready"), 8, statusY + 10, 0x006600);
             } else {
                 getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category_mismatch"), 8, statusY, 0xCC0000);
@@ -102,7 +103,7 @@ public class GuiConduitReplacer extends GuiContainerBaseEIO<ItemStack>
 
     @Override
     @Nonnull
-    protected ResourceLocation getGuiTexture() {
+    public ResourceLocation getGuiTexture() {
         return new ResourceLocation(Tags.MODID, "textures/gui/conduit_replacer.png");
     }
 }
