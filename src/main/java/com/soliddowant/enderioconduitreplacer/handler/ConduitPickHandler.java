@@ -11,6 +11,7 @@ import crazypants.enderio.base.conduit.geom.CollidableComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -77,17 +78,21 @@ public class ConduitPickHandler {
             return;
 
         // Determine which slot to set based on shift key
-        // Shift + middle-click = replacement (slot 1), normal middle-click = source (slot 0)
+        // Shift + middle-click = replacement (slot 1), normal middle-click = source
+        // (slot 0)
         int slotIndex = player.isSneaking() ? 1 : 0;
         String messageKey = player.isSneaking()
-            ? Tags.MODID + ".message.replacement_set"
-            : Tags.MODID + ".message.source_set";
+                ? Tags.MODID + ".message.replacement_set"
+                : Tags.MODID + ".message.source_set";
 
         // Send packet to server with the picked conduit
         PacketHandler.INSTANCE.sendToServer(new PacketSetGhostSlot(slotIndex, pickedStack, hand));
 
         // Send client-side chat message
         player.sendMessage(new TextComponentTranslation(messageKey, pickedStack.getDisplayName()));
+
+        // Trigger item swing animation (send packet to sync with server)
+        mc.getConnection().sendPacket(new CPacketAnimation(hand));
 
         // Cancel the event to prevent default behavior
         event.setCanceled(true);
