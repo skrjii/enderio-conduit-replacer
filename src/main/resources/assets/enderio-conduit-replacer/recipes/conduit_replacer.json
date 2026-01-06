@@ -1,25 +1,24 @@
 {
     "type": "forge:ore_shaped",
     "pattern": [
-        " P ",
-        "DYD",
-        " C "
+        "YSS",
+        " BP",
+        "  S"
     ],
     "key": {
+        "Y": {
+            "item": "enderio:item_yeta_wrench"
+        },
         "P": {
             "item": "enderio:item_material",
             "data": 14
         },
-        "D": {
+        "S": {
             "item": "enderio:item_alloy_ingot",
-            "data": 6
+            "data": 0
         },
-        "Y": {
-            "item": "enderio:item_yeta_wrench"
-        },
-        "C": {
-            "item": "enderio:item_material",
-            "data": 1
+        "B": {
+            "item": "minecraft:stone_button"
         }
     },
     "result": {
