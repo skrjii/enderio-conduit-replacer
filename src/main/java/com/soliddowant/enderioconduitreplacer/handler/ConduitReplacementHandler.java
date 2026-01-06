@@ -18,11 +18,13 @@ import crazypants.enderio.base.conduit.IConduit;
 import crazypants.enderio.base.conduit.IConduitBundle;
 import crazypants.enderio.base.conduit.IConduitItem;
 import crazypants.enderio.base.conduit.IServerConduit;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -320,6 +322,14 @@ public class ConduitReplacementHandler {
 
             // Also force update on the replaced conduit's block
             world.notifyBlockUpdate(loc.pos, world.getBlockState(loc.pos), world.getBlockState(loc.pos), 3);
+
+            // 12. Play placement sound at the conduit location
+            SoundType soundType = world.getBlockState(loc.pos).getBlock().getSoundType(world.getBlockState(loc.pos),
+                    world, loc.pos, player);
+            world.playSound(null, loc.pos, soundType.getPlaceSound(),
+                    SoundCategory.BLOCKS,
+                    (soundType.getVolume() + 1.0F) / 2.0F,
+                    soundType.getPitch());
 
             return true;
 
