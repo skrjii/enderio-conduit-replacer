@@ -66,40 +66,65 @@ public class GuiConduitReplacer extends GuiContainerBaseEIO<ItemStack>
 
         // Draw slot labels
         getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.source"), 35, 25, 0x404040);
-        getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.replacement"), 99, 25, 0x404040);
+        getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.replacement"), 104, 25, 0x404040);
 
         // Draw category info
         ItemStack source = container.getSourceConduit();
         ItemStack replacement = container.getReplacementConduit();
 
         int statusY = 55;
+        int lineHeight = 9;
+
+        String lineOneText;
+        int lineOneColor;
+
+        String lineTwoText = null;
+        int lineTwoColor = 0;
 
         if (!source.isEmpty() && !replacement.isEmpty()) {
             boolean sameCategory = ConduitSettingsUtil.areSameCategory(source, replacement);
             if (sameCategory) {
                 String categoryName = ConduitSettingsUtil.getCategoryName(source);
-                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category", categoryName), 8, statusY,
-                        0x006600);
-                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.ready"), 8, statusY + 10, 0x006600);
+
+                lineOneText = I18n.format(Tags.MODID + ".gui.category", categoryName);
+                lineOneColor = 0x006600;
+
+                lineTwoText = I18n.format(Tags.MODID + ".gui.ready");
+                lineTwoColor = 0x006600;
             } else {
-                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category_mismatch"), 8, statusY, 0xCC0000);
-                String srcCat = ConduitSettingsUtil.getCategoryName(source);
-                String repCat = ConduitSettingsUtil.getCategoryName(replacement);
-                getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category_mismatch_detail", srcCat, repCat),
-                        8, statusY + 10, 0xCC0000);
+                lineOneText = I18n.format(Tags.MODID + ".gui.category_mismatch");
+                lineOneColor = 0xCC0000;
+
+                lineTwoText = I18n.format(Tags.MODID + ".gui.category_mismatch_detail",
+                        ConduitSettingsUtil.getCategoryName(source),
+                        ConduitSettingsUtil.getCategoryName(replacement));
+                lineTwoColor = 0xCC0000;
             }
         } else if (!source.isEmpty()) {
             String categoryName = ConduitSettingsUtil.getCategoryName(source);
-            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category", categoryName), 8, statusY, 0x404040);
-            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.set_replacement"), 8, statusY + 10, 0x808080);
+
+            lineOneText = I18n.format(Tags.MODID + ".gui.category", categoryName);
+            lineOneColor = 0x404040;
+
+            lineTwoText = I18n.format(Tags.MODID + ".gui.set_replacement");
+            lineTwoColor = 0x808080;
         } else if (!replacement.isEmpty()) {
             String categoryName = ConduitSettingsUtil.getCategoryName(replacement);
-            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.category", categoryName), 8, statusY, 0x404040);
-            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.set_source"), 8, statusY + 10, 0x808080);
+
+            lineOneText = I18n.format(Tags.MODID + ".gui.category", categoryName);
+            lineOneColor = 0x404040;
+
+            lineTwoText = I18n.format(Tags.MODID + ".gui.set_source");
+            lineTwoColor = 0x808080;
         } else {
-            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.set_conduits"), 8, statusY, 0x808080);
-            getFontRenderer().drawString(I18n.format(Tags.MODID + ".gui.drag_hint"), 8, statusY + 10, 0x808080);
+            lineOneText = I18n.format(Tags.MODID + ".gui.set_conduits");
+            lineOneColor = 0x808080;
         }
+
+        getFontRenderer().drawString(lineOneText, 8, statusY, lineOneColor);
+
+        if (lineTwoText != null)
+            getFontRenderer().drawString(lineTwoText, 8, statusY + lineHeight, lineTwoColor);
 
         // Draw "Inventory" label
         getFontRenderer().drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 0x404040);
