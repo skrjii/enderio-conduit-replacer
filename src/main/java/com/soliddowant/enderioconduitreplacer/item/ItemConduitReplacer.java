@@ -11,10 +11,10 @@ import com.soliddowant.enderioconduitreplacer.Tags;
 import com.soliddowant.enderioconduitreplacer.handler.ConduitReplacementHandler;
 import com.soliddowant.enderioconduitreplacer.handler.ReplacementResult;
 
+import crazypants.enderio.base.EnderIOTab;
 import crazypants.enderio.base.conduit.IConduitBundle;
 import crazypants.enderio.base.conduit.IConduitItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,7 +43,7 @@ public class ItemConduitReplacer extends Item {
         setRegistryName(Tags.MODID, "conduit_replacer");
         setTranslationKey(Tags.MODID + ".conduit_replacer");
         setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.TOOLS);
+        setCreativeTab(EnderIOTab.tabEnderIOItems);
     }
 
     @SideOnly(Side.CLIENT)
