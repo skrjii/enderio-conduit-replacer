@@ -60,6 +60,11 @@ public class ConduitReplacementHandler {
             return ReplacementResult.categoryMismatch();
         }
 
+        // Don't replace if source and replacement are identical
+        if (isSameConduitType(sourceItem, replacementItem)) {
+            return ReplacementResult.noConduitsReplaced();
+        }
+
         IConduitItem sourceConduitItem = (IConduitItem) sourceItem.getItem();
         Class<? extends IConduit> baseType = sourceConduitItem.getBaseConduitType();
 
