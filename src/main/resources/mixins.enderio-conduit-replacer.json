@@ -1,0 +1,14 @@
+{
+  "package": "com.soliddowant.enderioconduitreplacer.mixin",
+  "refmap": "mixins.enderio-conduit-replacer.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "PaintUtilMixin"
+  ],
+  "client": [
+    "ItemYetaWrenchMixin"
+  ],
+  "server": []
+}
