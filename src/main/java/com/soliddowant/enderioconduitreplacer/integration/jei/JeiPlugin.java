@@ -29,7 +29,7 @@ public class JeiPlugin implements IModPlugin {
             "用于批量替换特定类型导管的工具。",
             "",
             "基础用法：",
-            "1. " + TextFormatting.AQUA + "右键" + TextFormatting.RESET + "打开界面进行配置，或" + TextFormatting.AQUA + "【Shift】+ 中键" + TextFormatting.RESET + "点击导管以设定源/目标类型",
+            "1. " + TextFormatting.AQUA + "右键" + TextFormatting.RESET + "打开界面进行配置，或" + TextFormatting.AQUA + "[Shift]+ 中键" + TextFormatting.RESET + "点击导管以设定源/目标类型",
             "2. " + TextFormatting.AQUA + "右键" + TextFormatting.RESET + "点击导管束以替换匹配的导管",
             "",
             "可直接从JEI将物品拖入界面槽位。",
