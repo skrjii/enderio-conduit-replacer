@@ -16,7 +16,7 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
-        // Add info page for the Conduit Replacer
+        // 为导管替换器添加信息页面
         addConduitReplacerInfo(registry);
     }
 
@@ -24,19 +24,19 @@ public class JeiPlugin implements IModPlugin {
         ItemStack conduitReplacer = new ItemStack(ModItems.CONDUIT_REPLACER);
 
         String[] description = new String[] {
-            TextFormatting.WHITE.toString() + TextFormatting.BOLD + "Conduit Replacer" + TextFormatting.RESET,
+            TextFormatting.WHITE.toString() + TextFormatting.BOLD + "导管替换器" + TextFormatting.RESET,
             "",
-            "A tool for replacing all conduits of a given type.",
+            "用于批量替换特定类型导管的工具。",
             "",
-            "Basic Usage:",
-            "1. " + TextFormatting.AQUA + "Right-click" + TextFormatting.RESET + " to open the GUI and configure, or " + TextFormatting.AQUA + "(Shift) Middle-click" + TextFormatting.RESET + " a conduit to set source/replacement",
-            "2. " + TextFormatting.AQUA + "Right-click" + TextFormatting.RESET + " conduit bundles to replace matching conduits",
+            "基础用法：",
+            "1. " + TextFormatting.AQUA + "右键" + TextFormatting.RESET + "打开界面进行配置，或" + TextFormatting.AQUA + "【Shift】+ 中键" + TextFormatting.RESET + "点击导管以设定源/目标类型",
+            "2. " + TextFormatting.AQUA + "右键" + TextFormatting.RESET + "点击导管束以替换匹配的导管",
             "",
-            "Items can be dragged from JEI into the GUI slots.",
+            "可直接从JEI将物品拖入界面槽位。",
             "",
-            "Requirements:",
-            "• Source and replacement must be the same category",
-            "• Replacement conduits must be in your inventory",
+            "使用要求：",
+            "• 源导管与目标导管须属同一类别",
+            "• 目标替换用的导管必须存在于你的背包中",
         };
 
         registry.addIngredientInfo(conduitReplacer, VanillaTypes.ITEM, description);
